@@ -1,6 +1,9 @@
 # Tic Tac Toe Game in Python
 # Author: S4nduni
-# GitHub:
+# GitHub: https://github.com/s4nduni/tic-tac-toe-python
+
+# Import the random() function.
+import random
 
 
 # Global variables.
@@ -9,6 +12,23 @@ board_list = [" "] * 9
 
 # Details of the game.
 print("\tTic Tac Toe\n")
+
+# Game modes.
+print("Game mode\n")
+print("1.Human vs Human\n")
+print("2.Human vs Computer\n")
+
+
+def Chose_gamemode() -> int:
+    """
+    Chose the game mode.
+
+    Returns:
+        int: game mode(1 or 2)
+    """
+    game_mode = int(input("Enter (H vs H) 1 or (H vs C) 2 : "))
+
+    return game_mode
 
 
 def print_board() -> None:
@@ -42,6 +62,18 @@ def sp_input() -> None:
         if board_list[sp - 1] == " " and sp <= 9 and sp > 0:
             board_list[sp - 1] = "O"
             break
+
+
+def computer_input() -> None:
+    """
+    Computer inputs.
+    """
+    number = random.randint(1, 9)
+    if board_list[number - 1] == " " and number <= 9 and number > 0:
+        board_list[number - 1] = "O"
+        return None
+    else:
+        return computer_input()
 
 
 def check_winner() -> str:
@@ -81,7 +113,7 @@ def check_winner() -> str:
     return " "
 
 
-def run() -> None:
+def run(game_mode) -> None:
     """
     If the check_winner() fuction is not empty, then store the input in the board.
     First player  --> four chances.
@@ -94,7 +126,10 @@ def run() -> None:
             fp_input()
             print_board()
         else:
-            sp_input()
+            if game_mode == 1:
+                sp_input()
+            else:
+                computer_input()
             print_board()
 
 
@@ -114,7 +149,8 @@ def main() -> None:
     """
     The main() function.
     """
-    run()
+
+    run(Chose_gamemode())
     print_winner()
 
 
